@@ -1,6 +1,12 @@
 const questions = [
   {
-    'question': { 'description': 'blue', 'audio': 'audio/example1.mp3' },
+    'question': { 
+      'description': 'blue', 
+      'audio': {
+        'file': new Audio('audio/example1.mp3'),
+        'isPlaying': false,
+      }
+    },
     'answers': [
       { 'answer': 'red', 'image': 'images/example1.jpg'}, 
       { 'answer': 'blue', 'image': 'images/example2.jpg'},
@@ -9,7 +15,13 @@ const questions = [
     'why': 'The green <em class="green">FF</em> and blue <em class="blue">EE</em> values are the strongest.' 
   },
   {
-    'question': { 'description': '#33691E', 'audio': 'audio/example2.mp3' },
+    'question': { 
+      'description': '#33691E', 
+      'audio': {
+        'file': new Audio('audio/example2.mp3'),
+        'isPlaying': false,
+      }
+    },
     'answers': [
       { 'answer': '#BA0BAB', 'image': 'images/example1.jpg'}, 
       { 'answer': '#33691E', 'image': 'images/example2.jpg'},
@@ -18,7 +30,13 @@ const questions = [
     'why': 'The red <em class="red">BA</em> and blue <em class="blue">AB</em> values are the strongest.' 
   },
   {
-    'question': { 'description': '#45ed4a', 'audio': 'audio/example3.mp3' },
+    'question': { 
+      'description': '#45ed4a', 
+      'audio': {
+        'file': new Audio('audio/example3.mp3'),
+        'isPlaying': false,
+      }  
+    },
     'answers': [
       { 'answer': '#45ed4a', 'image': 'images/example1.jpg'}, 
       { 'answer': '#f54242', 'image': 'images/example2.jpg'},
@@ -33,16 +51,19 @@ Vue.component('hexquestion', {
   template: `
     <div>
       <pre class="code">{{this.q.description}}</pre>
-      <button type="button" class="btn-audioplay" @click="playQuestion(q.audio)">Play</button>
+      <button type="button" class="btn-audioplay" @click.prevent="!q.audio.isPlaying ? playQuestion(q.audio) : pauseQuestion(q.audio)">
+        {{ this.q.audio.isPlaying ? 'Pause' : 'Play' }}
+      </button>
     </div>
   `,
   methods: {
     playQuestion(item) {
-      console.log(item)
-      var snd = new Audio(item);
-      snd.play();
-
-      return true;
+      item.isPlaying = true;
+      item.file.play();
+    },
+    pauseQuestion(item) {
+      item.isPlaying = false;
+      item.file.pause();
     }
   }
 });
