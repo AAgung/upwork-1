@@ -1,7 +1,7 @@
 root {
-	--code: 'Open Sans',sans-serif;
+	--code: "PT Mono", monospace;
 	--cartoon: "Bangers", sans-serif;
-	--body: 'Open Sans',sans-serif;
+	--body: "PT Mono", monospace;
 	--black: #111111;
 	--white: beige;
 	--gradient: linear-gradient(
@@ -36,7 +36,7 @@ root {
 
 body {
 	background-color: var(--black);
-	
+	min-height: 100vh;
 	font-family: var(--code);
 	line-height: 1.5;
 	color: var(--white);
@@ -44,7 +44,6 @@ body {
 
 pre {
 	font-family: var(--code);
-	display: none;
 }
 
 @media (min-width: 100em) {
@@ -54,7 +53,7 @@ pre {
 }
 .hex {
 	font-size: 2rem;
-	margin: 0 0 0;
+	margin: 1rem 0 2rem;
 }
 
 .app {
@@ -64,7 +63,7 @@ pre {
 header,
 .main-ctnr {
 	position: relative;
-	margin: 0 auto 0;
+	margin: 3rem auto 0;
 	height: calc(100vh - 13rem);
 	width: 96%;
 	max-width: 37.5rem;
@@ -77,7 +76,7 @@ header,
 }
 
 .main-ctnr > div {
-	margin-bottom: 1rem;
+	margin-bottom: 3rem;
 }
 
 h1 {
@@ -131,8 +130,7 @@ a {
 button {
 	color: currentcolor;
 	font-family: var(--cartoon);
-	margin-top: .5rem;
-	margin-bottom: 1rem;
+	margin: 1.5rem;
 	border: none;
 	padding: 0.875rem 2rem 0.875rem;
 	border-radius: 0.25rem;
@@ -188,8 +186,8 @@ button:focus:after {
 }
 
 .checked.correct {
-	-webkit-animation: yay 3s ease-in-out infinite both;
-	animation: yay 3s ease-in-out infinite both;
+	-webkit-animation: yay 1.5s ease-in-out infinite both;
+	animation: yay 1.5s ease-in-out infinite both;
 }
 
 @-webkit-keyframes yay {
@@ -200,7 +198,7 @@ button:focus:after {
 		animation-timing-function: ease-out;
 	}
 	50% {
-		transform: scale(1.05);
+		transform: scale(1.3);
 		-webkit-animation-timing-function: ease-out;
 		animation-timing-function: ease-out;
 	}
@@ -214,15 +212,15 @@ button:focus:after {
 		animation-timing-function: ease-out;
 	}
 	50% {
-		transform: scale(1.05);
+		transform: scale(1.3);
 		-webkit-animation-timing-function: ease-out;
 		animation-timing-function: ease-out;
 	}
 }
 .checked.wrong {
-	-webkit-animation: shake-horizontal 0.1s
+	-webkit-animation: shake-horizontal 0.8s
 		cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
-	animation: shake-horizontal 0.1s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+	animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
 }
 
 @-webkit-keyframes shake-horizontal {
@@ -444,7 +442,6 @@ button:focus:after {
 
 .why em {
 	font-style: normal;
-	display: none;
 }
 .why em.green {
 	color: lime;

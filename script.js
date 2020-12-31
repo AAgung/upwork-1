@@ -60,6 +60,12 @@ Vue.component('hexquestion', {
     playQuestion(item) {
       item.isPlaying = true;
       item.file.play();
+      for(const v of document.querySelectorAll('.option-answer')) v.disabled = true;
+
+      item.file.addEventListener('ended', async () => {
+        for(const v of document.querySelectorAll('.option-answer')) v.disabled = false;
+        item.isPlaying = false;
+      });
     },
     pauseQuestion(item) {
       item.isPlaying = false;
@@ -107,7 +113,7 @@ Vue.component('answers', {
             </svg>
           </span>
         </span>
-        <input @change="answerChecked" type="radio" :id="item.answer" :value="item.answer" v-model="checked" :disabled="disabled"/><span v-html="itemWithColor(item)"></span></label></div>
+        <input @change="answerChecked" type="radio" :id="item.answer" class="option-answer" :value="item.answer" v-model="checked" :disabled="disabled"/><span v-html="itemWithColor(item)"></span></label></div>
         <button v-if="answer" type="button" @click="submitAnswer">Answer</button>
       </div>
   `,
