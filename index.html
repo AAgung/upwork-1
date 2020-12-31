@@ -19,8 +19,8 @@
       </header>
       <div class="main-ctnr" v-else>
         <div>
-          <hexquestion class="hex" :q="question" :answers="answers"></hexquestion>
-          <answers class="answers" :v="v" :q="question" :answers="answers" @answered="go" :disabled="disabled"></answers>
+          <hexquestion class="hex" :q="question" :answers="answers" @played="setAnswerDisable"></hexquestion>
+          <answers class="answers" :v="v" :q="question" :answers="answers" @answered="go" :disabled="{disabledQuestion: disabled, disabledAnswer: disabledAnswer}"></answers>
         </div>
         <div>
           <transition name="fade">

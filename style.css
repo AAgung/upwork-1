@@ -1,7 +1,7 @@
 root {
-	--code: 'Open Sans',sans-serif;
+	--code: "Open Sans", sans-serif;
 	--cartoon: "Bangers", sans-serif;
-	--body: 'Open Sans',sans-serif;
+	--body: "Open Sans", sans-serif;
 	--black: #111111;
 	--white: beige;
 	--gradient: linear-gradient(
@@ -36,7 +36,7 @@ root {
 
 body {
 	background-color: var(--black);
-	
+
 	font-family: var(--code);
 	line-height: 1.5;
 	color: var(--white);
@@ -131,7 +131,7 @@ a {
 button {
 	color: currentcolor;
 	font-family: var(--cartoon);
-	margin-top: .5rem;
+	margin-top: 0.5rem;
 	margin-bottom: 1rem;
 	border: none;
 	padding: 0.875rem 2rem 0.875rem;

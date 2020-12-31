@@ -60,11 +60,10 @@ Vue.component('hexquestion', {
     playQuestion(item) {
       item.isPlaying = true;
       item.file.play();
-      for(const v of document.querySelectorAll('.option-answer')) v.disabled = true;
-
+      
       item.file.addEventListener('ended', async () => {
-        for(const v of document.querySelectorAll('.option-answer')) v.disabled = false;
         item.isPlaying = false;
+        this.$emit('played', true);
       });
     },
     pauseQuestion(item) {
@@ -95,8 +94,8 @@ Vue.component('answers', {
 
   template: `
       <div>
-        <div :class="['label-ctnr', disabled ? 'disabled': '']"><label :class="[ feedbackClass(item.answer), checkedClass(item.answer)]" v-for="(item, i) in answers">
-        <span v-if="disabled">
+        <div :class="['label-ctnr', disabled.disabledQuestion || disabled.disabledAnswer ? 'disabled': '']"><label :class="[ feedbackClass(item.answer), checkedClass(item.answer)]" v-for="(item, i) in answers">
+        <span v-if="disabled.disabledQuestion">
           <span class="span-selected" v-if="isChecked(item.answer)">
             <svg class="svg-correct" v-if="isCorrectChecked(item.answer)" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">  
               <polyline class="path check" fill="none" stroke="#00FF00" stroke-width="8" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
@@ -113,7 +112,7 @@ Vue.component('answers', {
             </svg>
           </span>
         </span>
-        <input @change="answerChecked" type="radio" :id="item.answer" class="option-answer" :value="item.answer" v-model="checked" :disabled="disabled"/><span v-html="itemWithColor(item)"></span></label></div>
+        <input @change="answerChecked" type="radio" :id="item.answer" class="option-answer" :value="item.answer" v-model="checked" :disabled="disabled.disabledQuestion || disabled.disabledAnswer"/><span v-html="itemWithColor(item)"></span></label></div>
         <button v-if="answer" type="button" @click="submitAnswer">Answer</button>
       </div>
   `,
@@ -159,6 +158,7 @@ new Vue({
     return {
       currentIndex: 0,
       checkedAnswers: [],
+      disabledAnswer: true,
       v: [],
       score: 0,
       questions: [],
@@ -209,9 +209,14 @@ new Vue({
       this.questions = questions;
       
       this.isIdle = false;
+      console.log(this.disabledAnswer);
     },
     shuffle() {
       this.questions = questions.sort(function (a, b) {return 0.5 - Math.random();});
+    },
+    setAnswerDisable(isPlayedQuestion) {
+      if(isPlayedQuestion) this.disabledAnswer = false;
+      console.log(this.disabledAnswer);
     },
     go(r) {
       this.v = r;
@@ -232,6 +237,7 @@ new Vue({
       this.isAnswered = false;
       this.disabled = false;
       this.v = [];
+      this.disabledAnswer = true;
     },
     displayNext() {
       this.currentIndex++;
